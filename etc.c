@@ -5,7 +5,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+// #include "etc.h"
 
+// Below are the function prototypes, if you don't use include file 'etc.h'
 char* sanitizeStr( char* );
 char* sanitizeStr2( char*, char* invalid_chars_array );
 char* getstring( char* );
@@ -63,7 +65,6 @@ char* sanitizeStr( char* A )	{
 // example invalid chars array:
 // char* invalid_chars_array = "\\\"*/:<>?|";
 // encodes:  \ " * / : < > ? |
-
 char* sanitizeStr2( char* A, char* invalid_chars_array )	{
 
 	char* ics = invalid_chars_array;
@@ -88,7 +89,6 @@ char* sanitizeStr2( char* A, char* invalid_chars_array )	{
 
 	return _;
 }
-
 
 // [char*] getstring( [char*] );
 // This function prevents a lot of bugs and pointer-mangling etc.
@@ -166,13 +166,17 @@ int cmp_dstr( char* a_, char* b_ )	{
 	char* b = b_;
 	
 	if( a_ == NULL )	{
-		
+
+		#ifdef DEBUG
 		printf( "Warning. Arg 'a' in cmp_dstr (\"%s\":%d) is a NULL ptr.\n", __FILE__, __LINE__ );
+		#endif
 		a = "0";
 	}
 	if( b_ == NULL )	{
-		
+
+		#ifdef DEBUG
 		printf( "Warning. Arg 'b' in cmp_dstr (\"%s\":%d) is a NULL ptr.\n", __FILE__, __LINE__ );
+		#endif
 		b = "0";
 	}
 	
@@ -222,7 +226,6 @@ int systemEndian()	{
 	for( i=0; i<s; i++ )
 		// Uncomment the "printf" code line below before compiling the function and it will print a clue on invocation
 		// as to how the function performs the test.
-
 		//printf( "Byte at offset '%d' contains '%c'\n", i, ((char*)(void*)(&v))[i] );
 
 		;
@@ -236,7 +239,6 @@ int systemEndian()	{
 		;
 	return ((char*)(&v))[0] == ( '1' ); // returns 1 if little-endian. returns 0 if big-endian.
 }
-
 
 #endif
 
